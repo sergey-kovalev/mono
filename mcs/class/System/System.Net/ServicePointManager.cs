@@ -347,13 +347,13 @@ namespace System.Net
 			
 			ServicePoint sp = null;
 			//lock (servicePoints) {
-				SPKey key = new SPKey (origAddress, usesProxy ? address : null, useConnect);
-				sp = servicePoints [key] as ServicePoint;
-				if (sp != null)
-					return sp;
+				//SPKey key = new SPKey (origAddress, usesProxy ? address : null, useConnect);
+				//sp = servicePoints [key] as ServicePoint;
+				//if (sp != null)
+				//	return sp;
 
-				if (maxServicePoints > 0 && servicePoints.Count >= maxServicePoints)
-					throw new InvalidOperationException ("maximum number of service points reached");
+				//if (maxServicePoints > 0 && servicePoints.Count >= maxServicePoints)
+				//	throw new InvalidOperationException ("maximum number of service points reached");
 
 				int limit;
 #if NET_2_1
@@ -369,7 +369,8 @@ namespace System.Net
 				sp.UsesProxy = usesProxy;
 				sp.UseConnect = useConnect;
 				sp.SetTcpKeepAlive (tcp_keepalive, tcp_keepalive_time, tcp_keepalive_interval);
-				servicePoints.Add (key, sp);
+				//servicePoints.Add (key, sp);
+				Console.Write("*");
 			//}
 			
 			return sp;
@@ -379,6 +380,8 @@ namespace System.Net
 
 		internal static void RecycleServicePoints ()
 		{
+			Console.Write("@");
+			return;
 			ArrayList toRemove = new ArrayList ();
 			//lock (servicePoints) {
 				IDictionaryEnumerator e = servicePoints.GetEnumerator ();
