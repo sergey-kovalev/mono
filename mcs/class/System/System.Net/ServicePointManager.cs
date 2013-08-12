@@ -344,26 +344,12 @@ namespace System.Net
 			} 
 
 			address = new Uri (address.Scheme + "://" + address.Authority);
-			
-			ServicePoint sp = null;
-			//lock (servicePoints) {
-				//SPKey key = new SPKey (origAddress, usesProxy ? address : null, useConnect);
-				//sp = servicePoints [key] as ServicePoint;
-				//if (sp != null)
-				//	return sp;
 
-				//if (maxServicePoints > 0 && servicePoints.Count >= maxServicePoints)
-				//	throw new InvalidOperationException ("maximum number of service points reached");
-
-				int limit;
-#if NET_2_1
-				limit = defaultConnectionLimit;
-#else
 				string addr = address.ToString ();
-				limit = (int) manager.GetMaxConnections (addr);
-#endif
+				int limit = (int) manager.GetMaxConnections (addr);
+
 				
-				sp = new ServicePoint (address, limit, maxServicePointIdleTime);
+				ServicePoint sp = new ServicePoint (address, limit, maxServicePointIdleTime);
 				sp.Expect100Continue = expectContinue;
 				sp.UseNagleAlgorithm = useNagle;
 				sp.UsesProxy = usesProxy;
