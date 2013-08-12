@@ -380,7 +380,7 @@ namespace System.Net
 		internal static void RecycleServicePoints ()
 		{
 			ArrayList toRemove = new ArrayList ();
-			lock (servicePoints) {
+			//lock (servicePoints) {
 				IDictionaryEnumerator e = servicePoints.GetEnumerator ();
 				while (e.MoveNext ()) {
 					ServicePoint sp = (ServicePoint) e.Value;
@@ -409,7 +409,7 @@ namespace System.Net
 				
 				for (int i = 0; i < list.Count && servicePoints.Count > maxServicePoints; i++)
 					servicePoints.Remove (list.GetByIndex (i));
-			}
+			//}
 		}
 #if SECURITY_DEP
 		internal class ChainValidationHelper {
