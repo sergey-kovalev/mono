@@ -346,7 +346,7 @@ namespace System.Net
 			address = new Uri (address.Scheme + "://" + address.Authority);
 			
 			ServicePoint sp = null;
-			lock (servicePoints) {
+			//lock (servicePoints) {
 				SPKey key = new SPKey (origAddress, usesProxy ? address : null, useConnect);
 				sp = servicePoints [key] as ServicePoint;
 				if (sp != null)
@@ -362,6 +362,7 @@ namespace System.Net
 				string addr = address.ToString ();
 				limit = (int) manager.GetMaxConnections (addr);
 #endif
+				
 				sp = new ServicePoint (address, limit, maxServicePointIdleTime);
 				sp.Expect100Continue = expectContinue;
 				sp.UseNagleAlgorithm = useNagle;
@@ -369,7 +370,7 @@ namespace System.Net
 				sp.UseConnect = useConnect;
 				sp.SetTcpKeepAlive (tcp_keepalive, tcp_keepalive_time, tcp_keepalive_interval);
 				servicePoints.Add (key, sp);
-			}
+			//}
 			
 			return sp;
 		}
